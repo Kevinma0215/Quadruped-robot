@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="model" default="$(find xacro)/xacro '$(find quadruped_robot_description)/urdf/quadruped_robot.xacro'" />
+
+	<param name="robot_description" command="$(arg model)" />
+
+	<!-- setting GUI params -->
+	<param name="use_gui" value="true" />
+
+	<!-- operate node: joint_state_publisher -->
+	<node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+	
+	<!-- operate node: robot_state_publisher -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	
+	<!-- operate node: rviz -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find quadruped_robot_description)/config/display_xacro.rviz" required="true" />
+</launch>

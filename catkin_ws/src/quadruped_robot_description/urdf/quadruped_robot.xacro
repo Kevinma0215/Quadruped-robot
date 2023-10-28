@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot name="quadruped_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	
+	<xacro:include filename="$(find quadruped_robot_description)/urdf/quad_body.xacro" />
+
+	<!-- Robot structure -->
+	<robot_structure />
+
+</robot>
