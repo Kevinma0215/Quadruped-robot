@@ -4,6 +4,6 @@
 	<xacro:include filename="$(find quadruped_robot_description)/urdf/quad_body.xacro" />
 
 	<!-- Robot structure -->
-	<robot_structure />
+	<quad_robot />
 
 </robot>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="robot_structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="quad_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 <!--robot name="robot_structure" xmlns:xacro="http://ros.org/wiki/xacro"-->
 
 	<!-- Robot adjustable params -->	
@@ -19,12 +19,18 @@
 	<!-- macro -->
 	<xacro:macro name="leg" params="parent number left front">
 
-		<joint name="servo1_in_leg${number}" type="continuous">
+		<joint name="joint1_in_leg${number}" type="continuous">
 			<origin xyz="${front*leg_distance/2} ${left*body_width/2} 0" rpy="0 ${PI/2} 0" />
 			<parent link="${parent}" />
 			<child link="link1_in_leg${number}" />
 			<axis xyz="0 0 1" />  <!-- Rotate around x axis -->
 		</joint>
+
+		<transmission name="trans1_in_leg${number}">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="joint1_in_leg${number}" hardwareInterface="PositionJointInterface"/>
+			<actuator name="servo1_in_leg${number}" hardwareInterface="PositionJointInterface" />
+		</transmission>
 
 		<link name="link1_in_leg${number}">
 			<visual>
@@ -44,12 +50,18 @@
 			</collision>
 		</link>
 
-		<joint name="servo2_in_leg${number}" type="continuous">
+		<joint name="joint2_in_leg${number}" type="continuous">
 			<origin xyz="0 ${left*l1} 0" rpy="${-PI/2} 0 0" />
 			<parent link="link1_in_leg${number}" />
 			<child link="link2_in_leg${number}" />
 			<axis xyz="0 0 1" />  <!-- Rotate around y axis -->
 		</joint>
+
+		<transmission name="trans2_in_leg${number}">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="joint2_in_leg${number}" hardwareInterface="PositionJointInterface"/>
+			<actuator name="servo2_in_leg${number}" hardwareInterface="PositionJointInterface" />
+		</transmission>
 
 		<link name="link2_in_leg${number}">
 			<visual>
@@ -69,12 +81,18 @@
 			</collision>
 		</link>
 
-		<joint name="servo3_in_leg${number}" type="continuous">
+		<joint name="joint3_in_leg${number}" type="continuous">
 			<origin xyz="${l2} 0 0" rpy="0 0 0" />
 			<parent link="link2_in_leg${number}" />
 			<child link="link3_in_leg${number}" />
 			<axis xyz="0 0 1" />  <!-- Rotate around y axis -->
 		</joint>
+
+		<transmission name="trans3_in_leg${number}">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="joint3_in_leg${number}" hardwareInterface="PositionJointInterface"/>
+			<actuator name="servo3_in_leg${number}" hardwareInterface="PositionJointInterface" />
+		</transmission>
 
 		<link name="link3_in_leg${number}">
 			<visual>
@@ -118,5 +136,11 @@
 	<xacro:leg parent="body" number="2" left="1" front="-1" />
 	<xacro:leg parent="body" number="3" left="-1" front="1" />
 	<xacro:leg parent="body" number="4" left="-1" front="-1" />
+	
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/quad_robot</robotNamespace>
+		</plugin>
+	</gazebo>
 
 </robot>

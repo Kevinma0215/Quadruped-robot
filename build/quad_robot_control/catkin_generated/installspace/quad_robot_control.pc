@@ -1,0 +1,8 @@
+prefix=/home/kevin/Quadruped_robot_ws/install
+
+Name: quad_robot_control
+Description: Description of quad_robot_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

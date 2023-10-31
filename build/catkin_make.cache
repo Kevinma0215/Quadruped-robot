@@ -1,2 +1,2 @@
-kinematic:quadruped_robot_description
+quad_robot_control:quadruped_robot_description
 -DCATKIN_DEVEL_PREFIX=/home/kevin/Quadruped_robot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kevin/Quadruped_robot_ws/install -G Unix Makefiles
